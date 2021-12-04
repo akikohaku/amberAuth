@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <title>AmberAuth</title>
+    <link rel="shortcut icon" href="https://kohaku.xin/wp-content/themes/Sakura-child/images/favicon.ico">
+    <link rel="stylesheet" id="main_css" href="style.css" type="text/css" media="all">
+    <script src="function.js" defer=""></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="scroll">
+            <div class="scroll-content">
+                <div class="scroll-item">
+                    <img class="scroll-img" src="https://pic.kohaku.xin/images/2021/08/18/9eEldKWdTAk74saPL2NcHKDL.jpg">
+                </div>
+                <div class="scroll-item">
+                    <img class="scroll-img" src="https://pic.kohaku.xin/images/2021/08/19/89395685_p17---.png">
+                </div>
+                <div class="scroll-item">
+                    <img class="scroll-img" src="https://pic.kohaku.xin/images/2021/09/18/chrome_5WIGXytB1s.png">
+                </div>
+            </div>
+            <div class="dot-box">
+                <div class="dot" onclick="dotClick(0)" style="background:#ffffff99;width:20px"></div>
+                <div class="dot" onclick="dotClick(1)"></div>
+                <div class="dot" onclick="dotClick(2)"></div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="login-content">
+                <div class="logins" id="logins">
+                    <div class="login-t">
+                        <div class="login-type1" id="login-type1" onclick="logintype(0)">
+                            密码登录
+                            <div class="login-line" style="width:150px;margin-left:25px"></div>
+                        </div>
+                        <div class="login-type2" id="login-type2" onclick="logintype(1)">
+                            验证码登录
+                            <div class="login-line"></div>
+                        </div>
+                        <div class="info-box">
+                            <div class="info" id="info">
+                                <div class="infos">
+                                    <div class="text-gray">用户名或者邮箱</div>
+                                    <input type="text" name="log" id="user_login" class="input" value="" size="20">
+                                    <div class="text-gray">密码</div>
+                                    <input type="password" name="pwd" id="user_pass" class="input password-input" value="" size="20">
+                                </div>
+                                <div class="infos">
+                                    <div class="text-gray">手机号</div>
+                                    <input type="text" name="log" id="user_phone" class="input" value="" size="20">
+                                    <div class="text-gray">验证码</div>
+                                    <input type="password" name="pwd" id="user_sms" class="input" value="" size="20" style="width: 50%;">
+                                    <input type="button" class="button" value="发送验证码">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="login-t">
+                        <div class="info-box">
+                            <div class="infos">
+                                <div class="text-gray">用户名</div>
+                                <input type="text" name="log" id="user_name" class="input" value="" size="20">
+                                <div class="text-gray">邮箱</div>
+                                <input type="text" name="log" id="user_mail" class="input" value="" size="20">
+                                <div class="text-gray">手机号</div>
+                                <input type="text" name="log" id="user_phonenum" class="input" value="" size="20">
+                                <div class="text-gray">密码</div>
+                                <input type="password" name="pwd" id="user_pass" class="input password-input" value="" size="20">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-box">
+                <div class="buttons" id="buttons">
+                    <div class="login" id="login">
+                        登录
+                    </div>
+                    <div class="login" id="reg">
+                        注册
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="login">
+                登录
+            </div> -->
+            <div class="switch-to-reg text-gray" onclick="switchLogin()" id="switcher">
+                注册
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
