@@ -1,5 +1,15 @@
 var index = 0;
 
+//生命周期:加载完成
+window.onload = function() {
+    scroll();
+}
+
+//生命周期:释放
+window.onunload = function() {
+
+}
+
 function scroll() {
     var scrollitem = document.getElementsByClassName("scroll-item");
     var dots = document.getElementsByClassName("dot");
@@ -47,6 +57,7 @@ function logintype(e) {
         line[0].style = "width:0px;margin-left:100px";
         info.style.left = -300;
     }
+    changeBack();
 }
 var logorreg = 0
 
@@ -68,6 +79,7 @@ function switchLogin() {
         var login = document.getElementById("logins");
         login.style = "margin-top:0px";
     }
+    changeBack();
 }
 
 function login() {
@@ -99,4 +111,11 @@ function login() {
             console.log(xhr.responseText)
         }
     };
+}
+
+function changeBack() {
+    const doodle = document.querySelector('css-doodle');
+
+    /* just refresh */
+    doodle.update();
 }

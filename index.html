@@ -5,9 +5,16 @@
     <link rel="shortcut icon" href="https://kohaku.xin/wp-content/themes/Sakura-child/images/favicon.ico">
     <link rel="stylesheet" id="main_css" href="style.css" type="text/css" media="all">
     <script src="function.js" defer=""></script>
+    <script src="https://unpkg.com/css-doodle@0.22.0/css-doodle.min.js"></script>
 </head>
 
 <body>
+    <div class="back">
+        <css-doodle>
+            :doodle { @grid: 18 / 100vmax; background: #ffffff; } --hue: calc(180 + 1.5 * @row * @col); background: hsl(var(--hue), 50%, 70%); margin: -.5px; transition: @r(.7s) ease; clip-path: polygon(@pick( '0 0, 100% 0, 100% 100%', '0 0, 100% 0, 0 100%', '0 0,
+            100% 100%, 0 100%', '100% 0, 100% 100%, 0 100%' ));
+        </css-doodle>
+    </div>
     <div class="main">
         <div class="scroll">
             <div class="scroll-content">

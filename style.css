@@ -7,6 +7,7 @@
     margin: 0 auto;
     margin-top: 20vh;
     padding: 0;
+    z-index: 1;
 }
 
 .scroll {
@@ -28,7 +29,7 @@
     width: 400px;
     height: 600px;
     border-radius: 0 20px 20px 0;
-    /* background-color: orange; */
+    background-color: #ffffff;
     user-select: none;
 }
 
@@ -120,6 +121,7 @@
     /* background-color: #8F8FFF; */
     overflow: hidden;
     user-select: none;
+    left: 0;
 }
 
 .info {
@@ -241,4 +243,14 @@
     width: 400px;
     height: 1000px;
     transition: all .5s ease-in-out;
+}
+
+.back {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    opacity: .2;
 }
