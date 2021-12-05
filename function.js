@@ -69,3 +69,34 @@ function switchLogin() {
         login.style = "margin-top:0px";
     }
 }
+
+function login() {
+    var Obj = {
+        username: document.getElementById("user_login").value,
+        password: document.getElementById("user_pass").value
+    };
+
+    console.log(Obj);
+
+    // 将 js 对象格式化为 JSON 字符串
+    var jsonStr = JSON.stringify(Obj);
+    console.log(jsonStr);
+    var xhr = new XMLHttpRequest();
+    var url = 'http://localhost:8089/amberAuthApi_Web_exploded/login.jsp';
+    // 设置属性
+    xhr.open('get', url);
+
+    // 如果想要使用post提交数据,必须添加此行
+    xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+
+    // 将数据通过send方法传递
+    xhr.send(jsonStr);
+
+    // 发送并接受返回值
+    xhr.onreadystatechange = function() {
+        // 这步为判断服务器是否正确响应
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText)
+        }
+    };
+}
