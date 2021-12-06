@@ -96,7 +96,36 @@ function login() {
     var xhr = new XMLHttpRequest();
     var url = 'http://localhost:8089/amberAuthApi_Web_exploded/login.jsp';
     // 设置属性
-    xhr.open('get', url);
+    xhr.open('post', url);
+
+    // 如果想要使用post提交数据,必须添加此行
+    xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+
+    // 将数据通过send方法传递
+    xhr.send(jsonStr);
+
+    // 发送并接受返回值
+    xhr.onreadystatechange = function() {
+        // 这步为判断服务器是否正确响应
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText)
+        }
+    };
+}
+
+function register() {
+    var Obj = {
+        username: document.getElementById("reg_name").value,
+        phone: document.getElementById("reg_phonenum").value,
+        mail: document.getElementById("reg_mail").value,
+        password: document.getElementById("reg_pass").value
+    };
+    var jsonStr = JSON.stringify(Obj);
+    console.log(jsonStr);
+    var xhr = new XMLHttpRequest();
+    var url = 'http://localhost:8089/amberAuthApi_Web_exploded/register.jsp';
+    // 设置属性
+    xhr.open('post', url);
 
     // 如果想要使用post提交数据,必须添加此行
     xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");

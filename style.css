@@ -254,3 +254,17 @@
     z-index: -1;
     opacity: .2;
 }
+
+@media screen and (max-width:1200px) {
+    .scroll {
+        display: none;
+    }
+    .main {
+        width: 400px;
+        border-radius: 20px;
+    }
+    .content {
+        border-radius: 20px;
+        margin-left: 0px;
+    }
+}
