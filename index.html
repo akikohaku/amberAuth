@@ -7,6 +7,7 @@
     <script src="function.js" defer=""></script>
     <script src="css-doodle.min.js"></script>
     <script type="text/javascript" src="md5.js"></script>
+    <script type="text/javascript" src="work.js"></script>
 </head>
 
 <body>
@@ -60,11 +61,11 @@
                                                 <input type="password" name="pwd" id="user_pass" class="input password-input" value="" size="20">
                                             </div>
                                             <div class="infos">
-                                                <div class="text-gray">手机号</div>
-                                                <input type="text" name="phone" id="user_phone" class="input" value="" size="20">
+                                                <div class="text-gray">手机号或邮箱</div>
+                                                <input type="text" name="phone" id="user_phone_mail" class="input" value="" size="20">
                                                 <div class="text-gray">验证码</div>
-                                                <input type="text" name="sec" id="user_sms" class="input" value="" size="20" style="width: 50%;">
-                                                <input type="button" class="button" value="发送验证码">
+                                                <input type="text" name="sec" id="user_code" class="input" value="" size="20" style="width: 50%;">
+                                                <input type="button" class="button" value="发送验证码" onclick="sendCode()" id="sendbutton">
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +132,16 @@
 
     </div>
     <div class="message text-gray" id="message"></div>
+    <div class="black-side" id="black"></div>
+    <div class="work" id="work">
+        <div class="side-bar">
+            <div class="side-bar-item">个人资料</div>
+            <div class="side-bar-item" onclick="logout()">登出</div>
+        </div>
+        <div class="work-content" id="work-content">
 
+        </div>
+    </div>
 </body>
 
 </html>

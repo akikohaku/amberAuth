@@ -1,4 +1,6 @@
 var index = 0;
+var uuid;
+var token;
 
 //生命周期:加载完成
 window.onload = function() {
@@ -35,10 +37,12 @@ function dotClick(e) {
 }
 
 setInterval(scroll, 7000);
+var logint = 0;
 
 function logintype(e) {
     var line = document.getElementsByClassName("login-line");
     var info = document.getElementById("info");
+    logint = e;
     if (e == 0) {
         var type = document.getElementById("login-type1");
         var type2 = document.getElementById("login-type2");
@@ -83,49 +87,210 @@ function switchLogin() {
 }
 
 function login() {
-    switchWaiting(0);
-    changeLoading("正在登录");
-    var Obj = {
-        username: document.getElementById("user_login").value,
-        password: hex_md5(document.getElementById("user_pass").value)
-    };
+    if (logint == 0) {
+        switchWaiting(0);
+        changeLoading("正在登录");
+        var Obj = {
+            username: document.getElementById("user_login").value,
+            password: hex_md5(document.getElementById("user_pass").value)
+        };
 
-    console.log(Obj);
+        console.log(Obj);
 
-    // 将 js 对象格式化为 JSON 字符串
-    var jsonStr = JSON.stringify(Obj);
-    console.log(jsonStr);
-    var xhr = new XMLHttpRequest();
-    var url = 'http://localhost:8089/amberAuthApi_Web_exploded/login.jsp';
-    // 设置属性
-    xhr.open('post', url);
+        // 将 js 对象格式化为 JSON 字符串
+        var jsonStr = JSON.stringify(Obj);
+        console.log(jsonStr);
+        var xhr = new XMLHttpRequest();
+        var url = 'http://localhost:8090/amberAuthApi_Web_exploded/login.jsp';
+        // 设置属性
+        xhr.open('post', url);
 
-    // 如果想要使用post提交数据,必须添加此行
-    xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+        // 如果想要使用post提交数据,必须添加此行
+        xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 
-    // 将数据通过send方法传递
-    xhr.send(jsonStr);
+        // 将数据通过send方法传递
+        xhr.send(jsonStr);
 
-    // 发送并接受返回值
-    xhr.onreadystatechange = function() {
-        // 这步为判断服务器是否正确响应
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            console.log(xhr.responseText)
-            var result = JSON.parse(xhr.responseText);
-            var status = eval(result).status;
-            if (status == 0) {
-                changeLoaded("登录成功");
-                cleanInput(1);
+        // 发送并接受返回值
+        xhr.onreadystatechange = function() {
+            // 这步为判断服务器是否正确响应
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText)
+                var result = JSON.parse(xhr.responseText);
+                var status = eval(result).status;
+                if (status == 0) {
+                    changeLoaded("登录成功");
+                    uuid = eval(result).uuid;
+                    token = eval(result).token;
+                    setTimeout(function() {
+                        changeWork(0);
+                    }, 3000);
+                    cleanInput(1);
+                } else {
+                    changeLoaded("用户名或密码错误");
+                    cleanInput(0);
+                }
+                setTimeout(function() { switchWaiting(1) }, 4000);
             } else {
-                changeLoaded("用户名或密码错误");
-                cleanInput(0);
+                changeLoaded("未知系统错误");
+                setTimeout(function() { switchWaiting(1) }, 4000);
             }
-            setTimeout(function() { switchWaiting(1) }, 4000);
-        } else {
-            changeLoaded("未知系统错误");
-            setTimeout(function() { switchWaiting(1) }, 4000);
+        };
+    } else {
+        switchWaiting(0);
+        changeLoading("正在登录");
+        var Obj = {
+            email: document.getElementById("user_phone_mail").value,
+            code: document.getElementById("user_code").value
+        };
+
+        console.log(Obj);
+
+        // 将 js 对象格式化为 JSON 字符串
+        var jsonStr = JSON.stringify(Obj);
+        console.log(jsonStr);
+        var xhr = new XMLHttpRequest();
+        var url = 'http://localhost:8090/amberAuthApi_Web_exploded/loginv.jsp';
+        // 设置属性
+        xhr.open('post', url);
+
+        // 如果想要使用post提交数据,必须添加此行
+        xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+
+        // 将数据通过send方法传递
+        xhr.send(jsonStr);
+
+        // 发送并接受返回值
+        xhr.onreadystatechange = function() {
+            // 这步为判断服务器是否正确响应
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText)
+                var result = JSON.parse(xhr.responseText);
+                var status = eval(result).status;
+                if (status == 0) {
+                    changeLoaded("登录成功");
+                    uuid = eval(result).uuid;
+                    token = eval(result).token;
+                    setTimeout(function() {
+                        changeWork(0);
+                    }, 3000);
+                    cleanInput(1);
+                } else {
+                    changeLoaded("验证码错误");
+                    document.getElementById("user_code").style = "border:1px solid red;width: 50%;";
+                    cleanInput(3);
+                }
+                setTimeout(function() { switchWaiting(1) }, 4000);
+            } else {
+                changeLoaded("未知系统错误");
+                setTimeout(function() { switchWaiting(1) }, 4000);
+            }
+        };
+    }
+}
+var buttondis = false;
+
+function sendCode() {
+    if (!buttondis) {
+
+
+        var mail = /^\w+[A-Za-z0-9|-]*\w*@([A-Za-z0-9]{1,}\.)+[A-Za-z0-9]{2,}$/
+        var phone = /^(13|14|15|17|18)\d{9}$/
+        if (mail.test(document.getElementById("user_phone_mail").value)) {
+            var button = document.getElementById("sendbutton");
+            button.value = "发送中";
+            buttondis = true;
+            var Obj = {
+                email: document.getElementById("user_phone_mail").value,
+            };
+
+            console.log(Obj);
+
+            // 将 js 对象格式化为 JSON 字符串
+            var jsonStr = JSON.stringify(Obj);
+            console.log(jsonStr);
+            var xhr = new XMLHttpRequest();
+            var url = 'http://localhost:8090/amberAuthApi_Web_exploded/sendMail.jsp';
+            // 设置属性
+            xhr.open('post', url);
+
+            // 如果想要使用post提交数据,必须添加此行
+            xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+
+            // 将数据通过send方法传递
+            xhr.send(jsonStr);
+
+            // 发送并接受返回值
+            xhr.onreadystatechange = function() {
+                // 这步为判断服务器是否正确响应
+                var button = document.getElementById("sendbutton");
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.responseText)
+                    var result = JSON.parse(xhr.responseText);
+                    var status = eval(result).status;
+                    if (status == 0) {
+                        message("已发送验证码，请注意查收");
+                        buttonClicked(60);
+                    } else {
+                        changeLoaded("未知系统错误");
+                        button.value = "发送验证码";
+                        buttondis = false;
+                    }
+
+                } else {
+                    changeLoaded("未知系统错误");
+
+                }
+            };
         }
-    };
+        if (phone.test(document.getElementById("user_phone_mail").value)) {
+            var Obj = {
+                phone: document.getElementById("user_phone_mail").value,
+            };
+            var button = document.getElementById("sendbutton");
+            button.value = "发送中";
+            buttondis = true;
+            console.log(Obj);
+
+            // 将 js 对象格式化为 JSON 字符串
+            var jsonStr = JSON.stringify(Obj);
+            console.log(jsonStr);
+            var xhr = new XMLHttpRequest();
+            var url = 'http://localhost:8090/amberAuthApi_Web_exploded/sendSMS.jsp';
+            // 设置属性
+            xhr.open('post', url);
+
+            // 如果想要使用post提交数据,必须添加此行
+            xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+
+            // 将数据通过send方法传递
+            xhr.send(jsonStr);
+
+            // 发送并接受返回值
+            xhr.onreadystatechange = function() {
+                // 这步为判断服务器是否正确响应
+                var button = document.getElementById("sendbutton");
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.responseText)
+                    var result = JSON.parse(xhr.responseText);
+                    var status = eval(result).status;
+                    if (status == 0) {
+                        message("已发送验证码，请注意查收");
+                        buttonClicked(60);
+                    } else {
+                        changeLoaded("未知系统错误");
+                        button.value = "发送验证码";
+                        buttondis = false;
+                    }
+
+                } else {
+                    changeLoaded("未知系统错误");
+                }
+            };
+        }
+    }
+
+
 }
 
 function register() {
@@ -171,7 +336,7 @@ function register() {
     var jsonStr = JSON.stringify(Obj);
     console.log(jsonStr);
     var xhr = new XMLHttpRequest();
-    var url = 'http://localhost:8089/amberAuthApi_Web_exploded/register.jsp';
+    var url = 'http://localhost:8090/amberAuthApi_Web_exploded/register.jsp';
     // 设置属性
     xhr.open('post', url);
     // 如果想要使用post提交数据,必须添加此行
@@ -188,9 +353,19 @@ function register() {
             if (status == "success") {
                 changeLoaded("注册成功");
                 cleanInput(2);
+                switchLogin();
             }
             if (status == "username used") {
                 changeLoaded("用户名已被占用");
+                document.getElementById("reg_name").style = "border:1px solid red";
+            }
+            if (status == "phone used") {
+                changeLoaded("手机号已被占用");
+                document.getElementById("reg_phonenum").style = "border:1px solid red";
+            }
+            if (status == "email used") {
+                changeLoaded("邮箱已被占用");
+                document.getElementById("reg_mail").style = "border:1px solid red";
             }
             if (status == "system error") {
                 changeLoaded("未知系统错误");
@@ -202,6 +377,23 @@ function register() {
         }
 
     };
+}
+var timeb = 60;
+var buttontimer;
+
+function buttonClicked(e) {
+    timeb = e;
+    buttontimer = setInterval(buttonCooling, 1000);
+}
+
+function buttonCooling() {
+    document.getElementById("sendbutton").value = timeb + "s";
+    timeb--;
+    if (timeb <= -1) {
+        window.clearInterval(buttontimer);
+        document.getElementById("sendbutton").value = "发送验证码";
+        buttondis = false;
+    }
 }
 
 function changeBack() {
@@ -275,6 +467,8 @@ function cleanInput(e) {
         //清空登录区
         document.getElementById("user_pass").value = "";
         document.getElementById("user_login").value = "";
+        document.getElementById("user_code").value = "";
+        document.getElementById("user_phone_mail").value = "";
     }
     if (e == 2) {
         //清空注册信息
@@ -283,6 +477,10 @@ function cleanInput(e) {
         document.getElementById("reg_phonenum").value = "";
         document.getElementById("reg_pass").value = "";
         document.getElementById("reg_re_pass").value = "";
+    }
+    if (e == 3) {
+        //清空验证码
+        document.getElementById("user_code").value = "";
     }
 }
 

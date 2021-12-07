@@ -352,6 +352,7 @@
     left: 35vw;
     top: -120px;
     background-color: #ffffff;
+    z-index: 999;
     padding-top: 25px;
     text-align: center;
     border-radius: 10px;
@@ -406,6 +407,70 @@ css-doodle {
         }
     }
     );
+}
+
+.black-side {
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    width: 100vw;
+    height: 100vh;
+    background-color: #444;
+    z-index: 15;
+    transition: all 1s ease-out;
+}
+
+.work {
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    z-index: 16;
+    transition: all 1s ease-out;
+}
+
+.side-bar {
+    margin: 0;
+    box-shadow: 0 4px 8px #a9a9a9;
+    width: 170px;
+    height: 100vh;
+    float: left;
+}
+
+.side-bar-item {
+    width: 170px;
+    height: 40px;
+    text-align: center;
+    color: #444;
+    font-size: 20px;
+    padding-top: 9px;
+    line-height: 1.5;
+    font-family: "Microsoft Yahei";
+    transition: all .5s ease-in-out;
+    cursor: pointer;
+}
+
+.side-bar-item:hover {
+    background-color: #d9d9d9;
+}
+
+.work-content {
+    background-color: #efefef;
+    margin-left: 170px;
+    height: 100vh;
+    padding-top: 30px;
+    padding-left: 40px;
+}
+
+.text-normal {
+    color: #444;
+    font-size: 20px;
+    padding-top: 5px;
+    padding-bottom: 9px;
+    line-height: 1.5;
+    font-family: "Microsoft Yahei";
 }
 
 @media screen and (max-width:1200px) {
