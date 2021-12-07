@@ -33,6 +33,17 @@
     user-select: none;
 }
 
+.main-content {
+    display: inline-block;
+    margin: 0px;
+    margin-left: -5px;
+    width: 400px;
+    height: 600px;
+    border-radius: 0 20px 20px 0;
+    background-color: #ffffff;
+    user-select: none;
+}
+
 .scroll-item {
     position: absolute;
     border-radius: 20px 0 0 20px;
@@ -117,7 +128,7 @@
     margin-top: 100px;
     margin-left: 50px;
     width: 300px;
-    height: 400px;
+    height: 450px;
     /* background-color: #8F8FFF; */
     overflow: hidden;
     user-select: none;
@@ -127,14 +138,15 @@
 .info {
     position: absolute;
     width: 700px;
-    height: 400px;
+    height: 450px;
     transition: all .5s ease-in-out;
     user-select: none;
+    left: 0;
 }
 
 .infos {
     width: 300px;
-    height: 400px;
+    height: 450px;
     display: inline-block;
     user-select: none;
 }
@@ -160,9 +172,14 @@
     box-shadow: 0 0 0px 1000px white inset;
     height: 46px;
     border-radius: 3px;
-    margin-top: 10px;
+    margin-top: 5px;
     width: 90%;
     margin-bottom: 15px;
+}
+
+.input:focus {
+    outline: none;
+    border: 1px solid #ff9600;
 }
 
 .button {
@@ -204,7 +221,7 @@
 
 .button-box {
     position: absolute;
-    margin-top: 450px;
+    margin-top: 490px;
     margin-left: 50px;
     overflow: hidden;
     width: 302px;
@@ -220,7 +237,7 @@
 
 .switch-to-reg {
     position: absolute;
-    margin-top: 510px;
+    margin-top: 550px;
     margin-left: 50px;
     width: 300px;
     text-align: center;
@@ -255,6 +272,38 @@
     opacity: .2;
 }
 
+.waiting {
+    display: inline-block;
+    position: absolute;
+    width: 200;
+    height: 200;
+    margin-left: 100px;
+    margin-top: 100px;
+    opacity: 0.8;
+}
+
+.main-items {
+    width: 400;
+    height: 600;
+    display: inline-block;
+    transition: all .3s ease-out;
+    overflow: hidden;
+}
+
+.main-scroll {
+    position: relative;
+    width: 900px;
+    height: 600px;
+    left: 0;
+    transition: all .6s ease-in-out;
+}
+
+.main-content {
+    width: 400px;
+    height: 600px;
+    overflow: hidden;
+}
+
 @media screen and (max-width:1200px) {
     .scroll {
         display: none;
@@ -264,6 +313,10 @@
         border-radius: 20px;
     }
     .content {
+        border-radius: 20px;
+        margin-left: 0px;
+    }
+    .main-content {
         border-radius: 20px;
         margin-left: 0px;
     }

@@ -69,7 +69,7 @@ function switchLogin() {
         var sw = document.getElementById("switcher");
         sw.innerText = "登录";
         var login = document.getElementById("logins");
-        login.style = "margin-top:-500px";
+        login.style = "margin-top:-520px";
     } else {
         logorreg = 0;
         var box = document.getElementById("buttons");
@@ -85,7 +85,7 @@ function switchLogin() {
 function login() {
     var Obj = {
         username: document.getElementById("user_login").value,
-        password: document.getElementById("user_pass").value
+        password: hex_md5(document.getElementById("user_pass").value)
     };
 
     console.log(Obj);
@@ -114,11 +114,12 @@ function login() {
 }
 
 function register() {
+    switchWaiting(0);
     var Obj = {
         username: document.getElementById("reg_name").value,
         phone: document.getElementById("reg_phonenum").value,
         mail: document.getElementById("reg_mail").value,
-        password: document.getElementById("reg_pass").value
+        password: hex_md5(document.getElementById("reg_pass").value)
     };
     var jsonStr = JSON.stringify(Obj);
     console.log(jsonStr);
@@ -126,19 +127,31 @@ function register() {
     var url = 'http://localhost:8089/amberAuthApi_Web_exploded/register.jsp';
     // 设置属性
     xhr.open('post', url);
-
     // 如果想要使用post提交数据,必须添加此行
     xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
-
     // 将数据通过send方法传递
     xhr.send(jsonStr);
-
     // 发送并接受返回值
     xhr.onreadystatechange = function() {
         // 这步为判断服务器是否正确响应
         if (xhr.readyState == 4 && xhr.status == 200) {
-            console.log(xhr.responseText)
+            console.log(xhr.responseText);
+            var result = JSON.parse(xhr.responseText);
+            var status = eval(result).status;
+            if (status == "success") {
+
+            }
+            if (stauts == "username used") {
+
+            }
+            if (status == "system error") {
+
+            }
+            setTimeout(switchWaiting(1), 4000);
+        } else {
+            setTimeout(switchWaiting(1), 4000);
         }
+
     };
 }
 
@@ -147,4 +160,31 @@ function changeBack() {
 
     /* just refresh */
     doodle.update();
+}
+
+function changeWaiting() {
+    const doodle = document.querySelectorAll('css-doodle');
+
+    /* just refresh */
+    doodle[1].update();
+}
+var waitingTimmer;
+
+function switchWaiting(e) {
+    if (e == 0) {
+        var mainitem = document.getElementById("main-scroll");
+        var maincontent = document.getElementsByClassName("main-items");
+        mainitem.style.left = -400;
+        maincontent[0].style.opacity = 0;
+        maincontent[1].style.opacity = 100;
+        waitingTimmer = setInterval(changeWaiting, 2000);
+    }
+    if (e == 1) {
+        var mainitem = document.getElementById("main-scroll");
+        var maincontent = document.getElementsByClassName("main-items");
+        mainitem.style.left = 0;
+        maincontent[0].style.opacity = 100;
+        maincontent[1].style.opacity = 0;
+        window.clearInterval(waitingTimmer);
+    }
 }
