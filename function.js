@@ -83,6 +83,8 @@ function switchLogin() {
 }
 
 function login() {
+    switchWaiting(0);
+    changeLoading("正在登录");
     var Obj = {
         username: document.getElementById("user_login").value,
         password: hex_md5(document.getElementById("user_pass").value)
@@ -109,16 +111,61 @@ function login() {
         // 这步为判断服务器是否正确响应
         if (xhr.readyState == 4 && xhr.status == 200) {
             console.log(xhr.responseText)
+            var result = JSON.parse(xhr.responseText);
+            var status = eval(result).status;
+            if (status == 0) {
+                changeLoaded("登录成功");
+                cleanInput(1);
+            } else {
+                changeLoaded("用户名或密码错误");
+                cleanInput(0);
+            }
+            setTimeout(function() { switchWaiting(1) }, 4000);
+        } else {
+            changeLoaded("未知系统错误");
+            setTimeout(function() { switchWaiting(1) }, 4000);
         }
     };
 }
 
 function register() {
+    var username = /^[a-zA-Z]{4,12}$/;
+    var password = /^\w{6,20}$/
+    var phone = /^(13|14|15|17|18)\d{9}$/
+    var mail = /^\w+[A-Za-z0-9|-]*\w*@([A-Za-z0-9]{1,}\.)+[A-Za-z0-9]{2,}$/
+    if (!username.test(document.getElementById("reg_name").value)) {
+        document.getElementById("reg_name").style = "border:1px solid red";
+        message("用户名为4-16位英文字母");
+        return;
+    }
+    if (!password.test(document.getElementById("reg_pass").value)) {
+        document.getElementById("reg_pass").style = "border:1px solid red";
+        message("密码为6-20位大小写字母、数字或下划线");
+        return;
+    }
+    var passtest = RegExp('^' + document.getElementById("reg_pass").value + '$')
+    if (!passtest.test(document.getElementById("reg_re_pass").value)) {
+        document.getElementById("reg_pass").style = "border:1px solid red";
+        document.getElementById("reg_re_pass").style = "border:1px solid red";
+        message("两次输入的密码不同");
+        return;
+    }
+    if (!phone.test(document.getElementById("reg_phonenum").value)) {
+        document.getElementById("reg_phonenum").style = "border:1px solid red";
+        message("手机号码位13、14、15、17、18开头的11位手机号");
+        return;
+    }
+    if (!mail.test(document.getElementById("reg_mail").value)) {
+        document.getElementById("reg_mail").style = "border:1px solid red";
+        message("邮箱格式错误");
+        return;
+    }
     switchWaiting(0);
+    changeLoading("正在注册");
     var Obj = {
         username: document.getElementById("reg_name").value,
         phone: document.getElementById("reg_phonenum").value,
-        mail: document.getElementById("reg_mail").value,
+        email: document.getElementById("reg_mail").value,
         password: hex_md5(document.getElementById("reg_pass").value)
     };
     var jsonStr = JSON.stringify(Obj);
@@ -139,17 +186,19 @@ function register() {
             var result = JSON.parse(xhr.responseText);
             var status = eval(result).status;
             if (status == "success") {
-
+                changeLoaded("注册成功");
+                cleanInput(2);
             }
-            if (stauts == "username used") {
-
+            if (status == "username used") {
+                changeLoaded("用户名已被占用");
             }
             if (status == "system error") {
-
+                changeLoaded("未知系统错误");
             }
-            setTimeout(switchWaiting(1), 4000);
+            setTimeout(function() { switchWaiting(1) }, 4000);
         } else {
-            setTimeout(switchWaiting(1), 4000);
+            changeLoaded("未知系统错误");
+            setTimeout(function() { switchWaiting(1) }, 4000);
         }
 
     };
@@ -174,17 +223,79 @@ function switchWaiting(e) {
     if (e == 0) {
         var mainitem = document.getElementById("main-scroll");
         var maincontent = document.getElementsByClassName("main-items");
+        var wait = document.getElementById("waiting-pic");
+        wait.style.display = "block";
         mainitem.style.left = -400;
         maincontent[0].style.opacity = 0;
         maincontent[1].style.opacity = 100;
-        waitingTimmer = setInterval(changeWaiting, 2000);
+        // waitingTimmer = setInterval(changeWaiting, 2000);
+
+
     }
     if (e == 1) {
         var mainitem = document.getElementById("main-scroll");
         var maincontent = document.getElementsByClassName("main-items");
+        var wait = document.getElementById("waiting-pic");
+        setTimeout(function() {
+            wait.style.display = "none";
+        }, 1000);
         mainitem.style.left = 0;
         maincontent[0].style.opacity = 100;
         maincontent[1].style.opacity = 0;
         window.clearInterval(waitingTimmer);
+        changeLoading("");
     }
+}
+
+function changeLoading(e) {
+    var loading = document.getElementById("loading");
+    var loaded = document.getElementById("loaded");
+    loading.style = "width:200px;margin-left:100px";
+    loaded.style = "height:0px";
+    loading.innerText = e;
+}
+
+function changeLoaded(e) {
+    setTimeout(function() {
+        var loading = document.getElementById("loading");
+        var loaded = document.getElementById("loaded");
+        loading.style = "width:0px;margin-left:200px";
+        loaded.style = "height:50px";
+    }, 1000);
+    loaded.innerText = e;
+}
+
+function cleanInput(e) {
+    if (e == 0) {
+        //清除登录区密码
+        var pass = document.getElementById("user_pass");
+        pass.value = "";
+    }
+    if (e == 1) {
+        //清空登录区
+        document.getElementById("user_pass").value = "";
+        document.getElementById("user_login").value = "";
+    }
+    if (e == 2) {
+        //清空注册信息
+        document.getElementById("reg_name").value = "";
+        document.getElementById("reg_mail").value = "";
+        document.getElementById("reg_phonenum").value = "";
+        document.getElementById("reg_pass").value = "";
+        document.getElementById("reg_re_pass").value = "";
+    }
+}
+
+function changeNormal(e) {
+    e.style = "border:1px solid #EAEAEA;";
+}
+
+function message(e) {
+    var mess = document.getElementById("message");
+    mess.innerText = e;
+    mess.style.top = 30;
+    setTimeout(function() {
+        var mess = document.getElementById("message");
+        mess.style.top = -120;
+    }, 3000);
 }
