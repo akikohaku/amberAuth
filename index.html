@@ -17,6 +17,9 @@
             100% 100%, 0 100%', '100% 0, 100% 100%, 0 100%' ));
         </css-doodle>
     </div>
+    <div class="site-name">
+        &nbsp;&nbsp;AmberAuth
+    </div>
     <div class="main">
 
         <div class="scroll">
@@ -28,7 +31,7 @@
                     <img class="scroll-img" src="image/89395685_p17---.png">
                 </div>
                 <div class="scroll-item">
-                    <img class="scroll-img" src="image/chrome_5WIGXytB1s.png">
+                    <img class="scroll-img" src="image/89395685_p2---.png">
                 </div>
             </div>
             <div class="dot-box">
@@ -76,7 +79,7 @@
                                             <div class="text-gray">用户名</div>
                                             <input type="text" name="username" id="reg_name" class="input" value="" size="20" onfocus="changeNormal(this)">
                                             <div class="text-gray">邮箱</div>
-                                            <input type="text" name="email" id="reg_mail" class="input" value="" size="20" onfocus="changeNormal(this)">
+                                            <input type="text" name="email" id="reg_mail" class="input" value="" size="128" onfocus="changeNormal(this)">
                                             <div class="text-gray">手机号</div>
                                             <input type="text" name="phone" id="reg_phonenum" class="input" value="" size="20" onfocus="changeNormal(this)">
                                             <div class="text-gray">密码</div>
@@ -107,6 +110,9 @@
                         <div class="switch-to-reg text-gray" onclick="switchLogin()" id="switcher">
                             注册
                         </div>
+                        <!-- <div class="switch-to-forget text-gray" onclick="switchForget()" id="switcher">
+                            忘记密码
+                        </div> -->
                     </div>
                 </div>
                 <div class="main-items">
@@ -132,11 +138,33 @@
 
     </div>
     <div class="message text-gray" id="message"></div>
+    <div class="adduser" id="adduser">
+        <div style="width: 300px; margin-left:50px">
+            <div class="text-gray">用户名</div>
+            <input type="text" name="username" id="add_name" class="input" value="" size="20" onfocus="changeNormal(this)">
+            <div class="text-gray">邮箱</div>
+            <input type="text" name="email" id="add_email" class="input" value="" size="128" onfocus="changeNormal(this)">
+            <div class="text-gray">手机号</div>
+            <input type="text" name="phone" id="add_phone" class="input" value="" size="20" onfocus="changeNormal(this)">
+            <div class="text-gray">密码</div>
+            <input type="password" name="pwd" id="add_pass" class="input password-input" value="" size="20" onfocus="changeNormal(this)">
+            <div class="login" id="login" style="margin-top: 20px;" onclick="addUser()">
+                添加
+            </div>
+            <div class="login" id="login" style="margin-top: 20px;" onclick="removedia()">
+                取消
+            </div>
+        </div>
+
+    </div>
     <div class="black-side" id="black"></div>
     <div class="work" id="work">
         <div class="side-bar">
-            <div class="side-bar-item">个人资料</div>
+            <div class="side-bar-item" onclick="showProfile()">个人资料</div>
+            <div class="side-bar-item" onclick="changePass()">修改密码</div>
+            <div class="side-bar-item" onclick="admin()">管理</div>
             <div class="side-bar-item" onclick="logout()">登出</div>
+
         </div>
         <div class="work-content" id="work-content">
 

@@ -497,3 +497,17 @@ function message(e) {
         mess.style.top = -120;
     }, 3000);
 }
+
+function addUserDia() {
+    var dia = document.getElementById("adduser");
+    dia.style.top = 50;
+}
+
+function removedia() {
+    var dia = document.getElementById("adduser");
+    dia.style.top = -700;
+    document.getElementById("add_name").value = "";
+    document.getElementById("add_phone").value = "";
+    document.getElementById("add_email").value = "";
+    document.getElementById("add_pass").value = "";
+}

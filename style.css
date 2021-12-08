@@ -221,7 +221,7 @@
 
 .button-box {
     position: absolute;
-    margin-top: 490px;
+    margin-top: 480px;
     margin-left: 50px;
     overflow: hidden;
     width: 302px;
@@ -237,7 +237,16 @@
 
 .switch-to-reg {
     position: absolute;
-    margin-top: 550px;
+    margin-top: 540px;
+    margin-left: 50px;
+    width: 300px;
+    text-align: center;
+    transition: all .5s ease-in-out;
+}
+
+.switch-to-forget {
+    position: absolute;
+    margin-top: 570px;
     margin-left: 50px;
     width: 300px;
     text-align: center;
@@ -359,6 +368,43 @@
     transition: all .7s ease;
 }
 
+.site-name {
+    width: 100vw;
+    height: 70px;
+    background-color: #a9a9a955;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #ffffff;
+    font-weight: normal;
+    padding-top: 20px;
+    font-size: 32px;
+    font-family: "Microsoft Yahei";
+    user-select: none;
+    transition: all .5s ease-in-out;
+}
+
+.site-name:hover {
+    color: #FF9600;
+    background-color: #a9a9a900;
+}
+
+.adduser {
+    width: 400px;
+    height: 520px;
+    border: 1px solid #EAEAEA;
+    box-shadow: 0 4px 8px #a9a9a9;
+    position: fixed;
+    left: 35vw;
+    top: -700px;
+    background-color: #ffffff;
+    z-index: 888;
+    padding-top: 25px;
+    text-align: center;
+    border-radius: 10px;
+    transition: all .7s ease;
+}
+
 css-doodle {
     --phi: @calc(4 * π / @size * @i);
     --theta: @calc(10 * π / @size * @i);
@@ -460,8 +506,6 @@ css-doodle {
     background-color: #efefef;
     margin-left: 170px;
     height: 100vh;
-    padding-top: 30px;
-    padding-left: 40px;
 }
 
 .text-normal {
@@ -471,6 +515,26 @@ css-doodle {
     padding-bottom: 9px;
     line-height: 1.5;
     font-family: "Microsoft Yahei";
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #d9d9d9
+}
+
+th {
+    background-color: #444;
+    color: white;
 }
 
 @media screen and (max-width:1200px) {
