@@ -65,9 +65,9 @@
                                             </div>
                                             <div class="infos">
                                                 <div class="text-gray">手机号或邮箱</div>
-                                                <input type="text" name="phone" id="user_phone_mail" class="input" value="" size="20">
+                                                <input type="text" name="phone_mail" id="user_phone_mail" class="input" value="" size="20">
                                                 <div class="text-gray">验证码</div>
-                                                <input type="text" name="sec" id="user_code" class="input" value="" size="20" style="width: 50%;">
+                                                <input type="text" name="sec" id="user_code" class="input" value="" size="20" style="width: 50%;" onfocus="changeNormal2(this)" onblur="changeno2(this)">
                                                 <input type="button" class="button" value="发送验证码" onclick="sendCode()" id="sendbutton">
                                             </div>
                                         </div>
@@ -77,15 +77,15 @@
                                     <div class="info-box">
                                         <div class="infos">
                                             <div class="text-gray">用户名</div>
-                                            <input type="text" name="username" id="reg_name" class="input" value="" size="20" onfocus="changeNormal(this)">
+                                            <input type="text" name="reg-username" id="reg_name" class="input" value="" size="20" onfocus="changeNormal(this)" onblur="changeno(this)">
                                             <div class="text-gray">邮箱</div>
-                                            <input type="text" name="email" id="reg_mail" class="input" value="" size="128" onfocus="changeNormal(this)">
+                                            <input type="text" name="reg-email" id="reg_mail" class="input" value="" size="128" onfocus="changeNormal(this)" onblur="changeno(this)">
                                             <div class="text-gray">手机号</div>
-                                            <input type="text" name="phone" id="reg_phonenum" class="input" value="" size="20" onfocus="changeNormal(this)">
+                                            <input type="text" name="reg-phone" id="reg_phonenum" class="input" value="" size="20" onfocus="changeNormal(this)" onblur="changeno(this)">
                                             <div class="text-gray">密码</div>
-                                            <input type="password" name="pwd" id="reg_pass" class="input password-input" value="" size="20" onfocus="changeNormal(this)">
+                                            <input type="password" name="reg-pwd" id="reg_pass" class="input password-input" value="" size="20" onfocus="changeNormal(this)" onblur="changeno(this)">
                                             <div class="text-gray">再次输入密码</div>
-                                            <input type="password" name="pwd" id="reg_re_pass" class="input password-input" value="" size="20" onfocus="changeNormal(this)">
+                                            <input type="password" name="reg-pwd" id="reg_re_pass" class="input password-input" value="" size="20" onfocus="changeNormal(this)" onblur="changeno(this)">
                                         </div>
                                     </div>
 
@@ -141,13 +141,13 @@
     <div class="adduser" id="adduser">
         <div style="width: 300px; margin-left:50px">
             <div class="text-gray">用户名</div>
-            <input type="text" name="username" id="add_name" class="input" value="" size="20" onfocus="changeNormal(this)">
+            <input type="text" name="add-username" id="add_name" class="input" value="" size="20" onfocus="changeNormal(this)">
             <div class="text-gray">邮箱</div>
-            <input type="text" name="email" id="add_email" class="input" value="" size="128" onfocus="changeNormal(this)">
+            <input type="text" name="add-email" id="add_email" class="input" value="" size="128" onfocus="changeNormal(this)">
             <div class="text-gray">手机号</div>
-            <input type="text" name="phone" id="add_phone" class="input" value="" size="20" onfocus="changeNormal(this)">
+            <input type="text" name="add-phone" id="add_phone" class="input" value="" size="20" onfocus="changeNormal(this)">
             <div class="text-gray">密码</div>
-            <input type="password" name="pwd" id="add_pass" class="input password-input" value="" size="20" onfocus="changeNormal(this)">
+            <input type="password" name="add-pwd" id="add_pass" class="input password-input" value="" size="20" onfocus="changeNormal(this)">
             <div class="login" id="login" style="margin-top: 20px;" onclick="addUser()">
                 添加
             </div>

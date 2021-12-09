@@ -72,7 +72,7 @@ function profile(e) {
                     document.getElementById("profile-username").innerText = res.username;
                     document.getElementById("profile_phone").value = res.phone;
                     document.getElementById("profile_mail").value = res.email;
-                }, 1000);
+                }, 500);
 
             } else {
                 message("未知系统错误");
@@ -353,11 +353,6 @@ function addUser() {
         message("用户名为4-16位英文字母");
         return;
     }
-    if (!password.test(document.getElementById("add_pass").value)) {
-        document.getElementById("add_pass").style = "border:1px solid red";
-        message("密码为6-20位大小写字母、数字或下划线");
-        return;
-    }
     if (!phone.test(document.getElementById("add_phone").value)) {
         document.getElementById("add_phone").style = "border:1px solid red";
         message("手机号码位13、14、15、17、18开头的11位手机号");
@@ -366,6 +361,11 @@ function addUser() {
     if (!mail.test(document.getElementById("add_email").value)) {
         document.getElementById("add_email").style = "border:1px solid red";
         message("邮箱格式错误");
+        return;
+    }
+    if (!password.test(document.getElementById("add_pass").value)) {
+        document.getElementById("add_pass").style = "border:1px solid red";
+        message("密码为6-20位大小写字母、数字或下划线");
         return;
     }
     var Obj = {
